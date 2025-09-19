@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Parallax Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 200px);
+      grid-gap: 25px;
+      perspective: 1000px;
+    }
+
+    .card {
+      height: 150px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 50px rgba(255, 0, 255, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="card">Analytics</div>
+    <div class="card">Revenue</div>
+    <div class="card">Users</div>
+    <div class="card">Tasks</div>
+    <div class="card">Messages</div>
+    <div class="card">Settings</div>
+   
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll(".card");
+
+    document.addEventListener("mousemove", (e) => {
+      const x = (window.innerWidth / 2 - e.pageX) / 25;
+      const y = (window.innerHeight / 2 - e.pageY) / 25;
+
+      cards.forEach(card => {
+        card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+      });
+    });
+
+    document.addEventListener("mouseleave", () => {
+      cards.forEach(card => {
+        card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      });
+    });
+  </script>
+</body>
+</html>
